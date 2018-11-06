@@ -2,6 +2,7 @@ package a2;
 
 import static org.lwjgl.opengl.GL30.*;
 
+import ab3.Aufgabe3undFolgende;
 import opengl.AbstractOpenGLBase;
 import opengl.ShaderProgram;
 
@@ -31,14 +32,7 @@ public class Aufgabe2 extends AbstractOpenGLBase {
 
 	private void createVBO(float[] array, int id, int size) {
 
-		int vboId = glGenBuffers();
-		glBindBuffer(GL_ARRAY_BUFFER, vboId);
-
-		glBufferData(GL_ARRAY_BUFFER, array, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(id,size,GL_FLOAT, false, 0, 0);
-
-		glEnableVertexAttribArray(id);
+		Aufgabe3undFolgende.createVBo(array, id, size);
 	}
 
 	@Override
