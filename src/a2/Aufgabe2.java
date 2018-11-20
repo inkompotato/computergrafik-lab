@@ -32,7 +32,7 @@ public class Aufgabe2 extends AbstractOpenGLBase {
 
 	private void createVBO(float[] array, int id, int size) {
 
-		Aufgabe3undFolgende.createVBo(array, id, size);
+		Aufgabe3undFolgende.createVBO(array, id, size);
 	}
 
 	@Override
