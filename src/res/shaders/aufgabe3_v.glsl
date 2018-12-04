@@ -14,7 +14,7 @@ out vec3 pixelKoordinateInRaum;
 out vec3 normalenImRaum;
 
 void main(){
-bool mode = false;
+bool mode = true;
 
 if (mode){
         //black
