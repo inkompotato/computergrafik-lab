@@ -4,6 +4,9 @@ import static org.lwjgl.opengl.GL30.*;
 
 import opengl.AbstractOpenGLBase;
 import opengl.ShaderProgram;
+import opengl.Texture;
+
+import java.awt.event.KeyEvent;
 
 public class Aufgabe3undFolgende extends AbstractOpenGLBase {
 
@@ -40,19 +43,32 @@ public class Aufgabe3undFolgende extends AbstractOpenGLBase {
         glUniformMatrix4fv(projloc, false, new Mat4(0.5f, 100f).getValuesAsArray());
 
         //normalen vektoren - stuff
-        float[] normalen = new float[]{
-                                        0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,//vorne
-                                        0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,//hinten
-                                        0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,//unten
-                                        0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,//oben
-                                        -1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,//links
-                                        1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0 //rechts
-                                    };
+//        float[] normalen = new float[]{
+//                                        0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,//vorne
+//                                        0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,//hinten
+//                                        0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,//unten
+//                                        0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,//oben
+//                                        -1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,//links
+//                                        1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0 //rechts
+//                                    };
+        float[] normalen = generateNorms(vertices,36);
 
         createVBO(normalen,1,3);
 
+        float[] uvCoords = new float[]{
+                0,0,0,0.5f,0.5f,0, 0.5f,0,0,0.5f,0.5f,0.5f, //gut 1.
+                0,0,0,0.25f,0.25f,0, 0,0.25f,0.25f,0.25f,0.25f,0, //gut 2.
+                0,0.75f,0.75f,0,0,0, 0,0.75f,0.75f,0.75f,0.75f,0,//gut 3.
+                0,0,1,0,1,1, 0,0,1,1,0,1,// gut 4.
+                0.75f,0.75f,0.75f,1,1,0.75f, 1,0.75f,0.75f,1,1,1, //gut 5.
+                0,0,0,1,1,0, 0,1,1,1,1,0,
+        };
 
+        createVBO(uvCoords,2,2);
 
+        Texture texture = new Texture("texture3.png");
+
+        glBindTexture(GL_TEXTURE_2D,texture.getId());
     }
 
     private int counter;
@@ -159,4 +175,58 @@ public class Aufgabe3undFolgende extends AbstractOpenGLBase {
             0.5F, -0.5F, -0.5F,
             0.5F, 0.5F, -0.5F
     };
+
+    private float[] generateNorms(float[] objectKoords, int amountPoints){
+        Vector[] vectors = new Vector[amountPoints];
+        int counter = 0;
+        for (int i = 0; i < objectKoords.length; i+=3) {
+            Vector p = new Vector(objectKoords[i],objectKoords[i+1],objectKoords[i+2]);
+            vectors[counter] = p;
+            counter++;
+        }
+
+        float[] norms = new float[36*3];
+        int normscounter = -1;
+        for (int i = 0; i < vectors.length; i+=3) {
+            Vector a = vectors[i];
+            Vector b = vectors[i+1];
+            Vector c = vectors[i+2];
+
+            Vector normA = a.getVectorTo(b).crossWith(a.getVectorTo(c));
+            for (int j = 0; j < 3; j++) {
+                norms[++normscounter]=normA.x;
+                norms[++normscounter]=normA.y;
+                norms[++normscounter]=normA.z;
+            }
+        }
+
+        return norms;
+    }
+
+    class Vector {
+        float x;
+        float y;
+        float z;
+
+        Vector(float x, float y, float z){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        Vector getVectorTo(Vector vector){
+            float x = vector.x-this.x;
+            float y = vector.y-this.y;
+            float z = vector.z-this.z;
+
+            return new Vector(x,y,z);
+        }
+
+        Vector crossWith(Vector vector){
+            float x = this.y* vector.z-this.z* vector.y;
+            float y = this.z* vector.x-this.x* vector.z;
+            float z = this.x* vector.y-this.y* vector.x;
+            return new Vector(x,y,z);
+        }
+    }
 }

@@ -4,7 +4,7 @@
 
 layout(location=0) in vec3 vertex;
 layout(location=1) in vec3 normalen;
-
+layout(location=2) in vec2 uvCoords;
 
 uniform mat4 matrix;
 uniform mat4 projectionMatrix;
@@ -12,10 +12,12 @@ uniform mat4 projectionMatrix;
 out vec3 vertexColor;
 out vec3 pixelKoordinateInRaum;
 out vec3 normalenImRaum;
+out vec2 uv;
 
 void main(){
-bool mode = true;
+bool mode = false;
 
+//generate colors
 if (mode){
         //black
         if (vertex.x == -0.5 && vertex.y == -0.5 && vertex.z == -0.5) {
@@ -44,8 +46,8 @@ if (mode){
         } else {
             vertexColor = vec3(0.5, 0.5, 0.5);
         }
-        }else {
-
+}else {
+        //gradient
         if (gl_VertexID < 6) {
                 vertexColor = vec3(1.0, 0.0, 0.0);
             } else if (gl_VertexID < 12) {
@@ -59,11 +61,14 @@ if (mode){
             } else {
                 vertexColor = vec3(0.0, 1.0, 1.0);
             }
-            }
+}
 
     //vec4 eckenRotiert = matrix*eckenAusJava;
     //farbe = farbenAusJava;
+    uv = uvCoords;
     pixelKoordinateInRaum = vec3(matrix*vec4(vertex,1.0));
     normalenImRaum = normalize(mat3(matrix)*normalen);
     gl_Position = projectionMatrix*matrix*vec4(vertex, 1.0);
+
+
 }
