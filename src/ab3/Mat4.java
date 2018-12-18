@@ -117,4 +117,9 @@ public class Mat4 {
     public float[] getValuesAsArray() {
         return v;
     }
+
+    public float[] getMatLoc(){
+        float[] matLoc = new float[]{v[12],v[13],v[14]};
+        return matLoc;
+    }
 }

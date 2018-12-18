@@ -24,7 +24,7 @@ void main(){
     vec3 v = normalize(-pixelKoordinateInRaum);
     float is = pow(max(0,dot(r,v)),100)*il;
     float i = ia+id+is;
-    //pixelColor = i*vertexColor;
+    pixelColor = i*vertexColor;
 
-    pixelColor = i*texel.rgb;
+    //pixelColor = i*texel.rgb;
 }

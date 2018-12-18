@@ -15,7 +15,7 @@ out vec3 normalenImRaum;
 out vec2 uv;
 
 void main(){
-bool mode = false;
+bool mode = true;
 
 //generate colors
 if (mode){
@@ -69,6 +69,5 @@ if (mode){
     pixelKoordinateInRaum = vec3(matrix*vec4(vertex,1.0));
     normalenImRaum = normalize(mat3(matrix)*normalen);
     gl_Position = projectionMatrix*matrix*vec4(vertex, 1.0);
-
 
 }
