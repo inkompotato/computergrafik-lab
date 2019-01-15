@@ -140,6 +140,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../../lwjgl-release-3.2.0-custom/steamworks4j-server-1.7.0-sources.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../lwjgl-release-3.2.0-custom/lwjgl-vulkan-javadoc (Conflicted copy from POTATO-NOTEBOOK on 2018-10-09).jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../lwjgl-release-3.2.0-custom/lwjgl-vulkan-sources (Conflicted copy from POTATO-NOTEBOOK on 2018-10-09).jar" path-in-jar="/" />
+      <element id="module-source" name="computergrafik-lab" />
     </root>
   </artifact>
 </component>

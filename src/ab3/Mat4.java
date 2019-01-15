@@ -80,6 +80,7 @@ public class Mat4 {
         return this;
     }
 
+
     public Mat4 rotateX(float angle) {
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);

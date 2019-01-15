@@ -3,7 +3,7 @@ package ab3;
 public class Geometry {
 
     //sphere
-    static float val = (float) (Math.sqrt(3) / 4);
+    private static float val = (float) (Math.sqrt(3) / 4);
 
     private static float[] sphereVertices = new float[] {
         //front
